@@ -1,0 +1,36 @@
+## {%- load_yaml as os_families %}
+## RedHat:
+##   ddns-update:
+##     lookup:
+##
+##       # What class of DNS server is being updated. Valid values
+##       # are: 'bind' and 'ad'.
+##       dns-server-type: bind
+##
+##       # TTL to attempt to set during update. All time-values are
+##       # provided in seconds.
+##       record-ttl: 1800
+##
+##       # The name of the keyfile containing the pre-shared key to
+##       # be used with TSIG-enabled, 'bind'-class DNS serviers.
+##       tsig-key-name: ddns-client 
+##
+##       # Wether to attempt to update the host's A record in DNS.
+##       update-a-record: true
+##
+##       # Wether to attempt to update the host's PTR record in DNS.
+##       update-ptr-record: false
+## 
+## 
+## Windows:
+##   ddns-update:
+##     lookup:
+##       dns-server-type: bind
+## 
+## {%- endload %}
+## 
+## {{ salt.grains.filter_by(
+##     os_families,
+##     default={},
+##     grain='os_family'
+## ) | yaml(False) }}
